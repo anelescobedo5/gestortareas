@@ -11,25 +11,45 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   addTask: () => (/* binding */ addTask),
-/* harmony export */   getTasks: () => (/* binding */ getTasks)
+/* harmony export */   deleteTask: () => (/* binding */ deleteTask),
+/* harmony export */   getTasks: () => (/* binding */ getTasks),
+/* harmony export */   updateTask: () => (/* binding */ updateTask)
 /* harmony export */ });
 // lista de tareas//
-var task = JSON.parse(localStorage.getItem('task')) || [];
+var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-//funcion para agregar tareas//
+//f uncion para agregar tareas//
 var addTask = function addTask(task) {
   var newTask = {
-    id: Date.now,
+    id: Date.now(),
     text: task,
     completed: false
   };
-  task.push(newTask);
-  localStorage.setItem('task', JSON.stringify(task));
+  tasks.push(newTask);
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
 // funcion para poder traer la lista de tareas//
 var getTasks = function getTasks() {
-  return task;
+  return tasks;
+};
+
+// funcion para eliminar una tareas de la lista//
+var deleteTask = function deleteTask(id) {
+  tasks = tasks.filter(function (task) {
+    return task.id !== parseInt(id);
+  });
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+};
+//funcion para actualizar una tareas//
+var updateTask = function updateTask(id) {
+  tasks = tasks.map(function (task) {
+    if (task.id === parseInt(id)) {
+      task.completed = !task.completed;
+    }
+    return task;
+  });
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
 /***/ }),
@@ -136,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Agregar el evento para la funcion para agregar tareas
   document.getElementById("task-form").addEventListener("submit", function (e) {
     e.preventDefault();
-    var taskInput = document.getElementById("taskinput");
+    var taskInput = document.getElementById("task-input");
     if (taskInput.value !== "") {
       //agregamos la tarea
       (0,_task__WEBPACK_IMPORTED_MODULE_1__.addTask)(taskInput.value);
@@ -146,6 +166,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
       //limpiar el input
       document.getElementById("task-input").value = "";
+    }
+  });
+  //agregar el evento para los botones//
+  document.getElementById("task-list").addEventListener("click", function (e) {
+    if (e.target.classList.contains("delete")) {
+      var taskId = e.target.parentElement.getAttribute("data-id");
+      (0,_task__WEBPACK_IMPORTED_MODULE_1__.deleteTask)(taskId);
+      (0,_ui__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
+    }
+    if (e.target.classList.contains("toggle")) {
+      var _taskId = e.target.parentElement.getAttribute("data-id");
+      (0,_task__WEBPACK_IMPORTED_MODULE_1__.updateTask)(_taskId);
+      (0,_ui__WEBPACK_IMPORTED_MODULE_0__.renderTask)();
     }
   });
 });

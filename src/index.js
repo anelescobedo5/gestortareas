@@ -1,6 +1,6 @@
 import { renderTask } from "./ui";
 import { addTask, deleteTask, updateTask } from "./task";
-
+import confetti from "canvas-confetti";
 document.addEventListener("DOMContentLoaded", () =>{
   //Hacemos visible la lista de tareas
     renderTask ();
@@ -30,15 +30,27 @@ document.addEventListener("DOMContentLoaded", () =>{
           deleteTask (taskId);
           renderTask();
          }
+        
 
          if (e.target.classList.contains("toggle")) {
           const taskId = e.target.parentElement.getAttribute("data-id");
           updateTask(taskId);
           renderTask();
-
+            confetti(
+              {
+              particleCount: 100,
+              spread: 70,
+              origin:{ y: 0.6}
+            }
+            )
+          }
+          if (e.target.classList.contains("undo")) {
+            const taskId = e.target.parentElement.getAttribute("data-id");
+            updateTask(taskId);
+            renderTask();
+            }
          }
 
-
+        )
 });
 
-});

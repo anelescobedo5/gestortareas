@@ -1,27 +1,34 @@
 /*estilos generales*/
 body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f4f4f4;
+    background-image: url("../flores.jpeg");
+    background-size: auto;
+    font-family: "Questrial", sans-serif;
+    font-weight: 400;
+    color: #282829;
     margin: 0%;
     padding: 0%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+        
 }
 
 /*Estilos para el contenedor principal*/
 #app {
-    background-color: white;
+    background-color: #0abafa;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border: 2px dashed #696969;
+    box-shadow: 0 0 10px rgba(11, 70, 233, 0.1);
+
 }
 
 /*estilos para el formulario*/
 form{
     display: flex;
     justify-content: space-between;
+
 }
 
 /* estilos al input*/
@@ -29,14 +36,14 @@ input {
     width: 75%;
     padding: 8px;
     margin-right: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #262727;
     border-radius: 3px;
 }
 
 /*estilos al boton*/
 button {
     padding: 5px 8px;
-    background-color: #007bff;
+    background-color: #006eff;
     color:white;
     border: none;
     border-radius: 3px;
@@ -66,3 +73,4 @@ li.completed{
     color: #888;
     
 }
+
